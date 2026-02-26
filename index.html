@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Devis et Factures - GIGNAC Jean-Marc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            background-color: #e9ecef;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .tab:last-child { border-right: none; }
+        .tab.active {
+            background-color: white;
+            color: #1565c0;
+            border-bottom: 2px solid #1565c0;
+            margin-bottom: -2px;
+        }
+        .tab:hover:not(.active) { background-color: #dee2e6; }
+        .tab-content { display: none; padding: 30px; }
+        .tab-content.active { display: block; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        .logo-section { display: flex; align-items: center; }
+        .logo { width: 55px; height: 55px; margin-right: 15px; }
+        .company-info h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+        .company-info .subtitle {
+            font-size: 13px;
+            font-weight: bold;
+            color: #1565c0;
+            margin: 1px 0 4px 0;
+        }
+        .company-info p {
+            margin: 1px 0;
+            font-size: 12px;
+            color: #555;
+        }
+        .document-number { font-size: 20px; font-weight: bold; color: #333; }
+        .client-section { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .client-info, .document-info { width: 48%; }
+        .client-info h3, .document-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; font-size: 12px; color: #666; margin-bottom: 2px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-group textarea { height: 60px; resize: vertical; }
+        .items-section { margin: 30px 0; }
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .items-table th, .items-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .items-table th { background-color: #f0f4ff; font-weight: bold; }
+        .items-table input { width: 100%; border: none; background: transparent; font-size: 14px; }
+        .items-table textarea { width: 100%; border: none; background: transparent; font-size: 14px; resize: vertical; }
+        .add-item-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .add-item-btn:hover { background-color: #218838; }
+        .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .remove-btn:hover { background-color: #c82333; }
+        .totals {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f4ff;
+            border-radius: 4px;
+        }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .total-row.final {
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+        }
+        .actions { margin-top: 30px; text-align: center; }
+        .btn { padding: 12px 24px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .btn-primary { background-color: #1565c0; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn:hover { opacity: 0.9; }
+        .facture-specific {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .facture-specific h4 { margin: 0 0 10px 0; color: #856404; }
+        @media print {
+            .tabs, .actions, .add-item-btn, .remove-btn { display: none !important; }
+            body { background: white; }
+            .container { box-shadow: none; }
+            .tab-content { padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('devis', event)">Devis</div>
+            <div class="tab" onclick="switchTab('facture', event)">Facture</div>
+        </div>
+
+        <!-- DEVIS -->
+        <div id="devis-content" class="tab-content active">
+            <div class="header">
+                <div class="logo-section">
+                    <!-- Icône plomberie/chauffage SVG -->
+                    <svg class="logo" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Clé à molette -->
+                        <circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+                        <circle cx="18" cy="37" r="3" fill="#1565c0"/>
+                        <rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/>
+                        <!-- Flamme -->
+                        <path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/>
+                        <!-- Goutte d'eau -->
+                        <path d="M10 10 C10 6 15 2 15 2 C15 2 20 6 20 10 C20 13 17.5 15 15 15 C12.5 15 10 13 10 10Z" fill="#1565c0" opacity="0.8"/>
+                    </svg>
+                    <div class="company-info">
+                        <h1>ENTREPRISE PLOMBERIE</h1>
+                        <div class="subtitle">SANITAIRE - CHAUFFAGE</div>
+                        <p><strong>M. Jean-Marc GIGNAC</strong></p>
+                        <p>11 avenue Pierre Semard - 06150 CANNES LA BOCCA</p>
+                        <p>Tél. 07 85 40 33 98</p>
+                        <p>SIRET : 490 581 006 00031</p>
+                    </div>
+                </div>
+                <div class="document-number">Devis N° <span id="devisNumber">1</span></div>
+            </div>
+
+            <div class="client-section">
+                <div class="client-info">
+                    <h3>DESTINATAIRE</h3>
+                    <div class="form-group">
+                        <label>Nom de l'entreprise / Client</label>
+                        <input type="text" id="devis-clientName" placeholder="Nom du client">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <textarea id="devis-clientAddress" placeholder="Adresse complète"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>SIRET (optionnel)</label>
+                        <input type="text" id="devis-clientSiret" placeholder="SIRET du client">
+                    </div>
+                </div>
+                <div class="document-info">
+                    <h3>INFORMATIONS DEVIS</h3>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="devis-date">
+                    </div>
+                    <div class="form-group">
+                        <label>Valable jusqu'au</label>
+                        <input type="date" id="devis-validUntil">
+                    </div>
+                    <div class="form-group">
+                        <label>TVA applicable</label>
+                        <select id="devis-globalTvaSelect" onchange="applyGlobalTva('devis')">
+                            <option value="0" selected>0%</option>
+                            <option value="0.10">10%</option>
+                            <option value="0.20">20%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="items-section">
+                <h3>PRESTATIONS</h3>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th style="width:38%">DÉSIGNATION</th>
+                            <th style="width:12%">QUANTITÉ</th>
+                            <th style="width:14%">PRIX UNITAIRE</th>
+                            <th style="width:13%">TOTAL HT</th>
+                            <th class="tva-header" style="width:13%">TVA (0%)</th>
+                            <th style="width:5%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devis-itemsTable">
+                        <tr>
+                            <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('devis')"></textarea></td>
+                            <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'devis')"></td>
+                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'devis')"></td>
+                            <td class="total-cell">0.00 €</td>
+                            <td class="tva-cell">-</td>
+                            <td><button class="remove-btn" onclick="removeRow(this,'devis')">🗑️</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-item-btn" onclick="addItem('devis')">+ Ajouter une ligne</button>
+            </div>
+
+            <div class="totals">
+                <div class="total-row"><span>Total HT :</span><span id="devis-totalHT">0.00 €</span></div>
+                <div class="total-row"><span id="devis-tvaLabel">TVA :</span><span id="devis-totalTVA">0.00 €</span></div>
+                <div class="total-row final"><span>Total TTC :</span><span id="devis-totalTTC">0.00 €</span></div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="generatePDF()">Imprimer / PDF</button>
+                <button class="btn btn-success" onclick="newDocument('devis')">Nouveau devis</button>
+            </div>
+        </div>
+
+        <!-- FACTURE -->
+        <div id="facture-content" class="tab-content">
+            <div class="header">
+                <div class="logo-section">
+                    <svg class="logo" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+                        <circle cx="18" cy="37" r="3" fill="#1565c0"/>
+                        <rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/>
+                        <path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/>
+                        <path d="M10 10 C10 6 15 2 15 2 C15 2 20 6 20 10 C20 13 17.5 15 15 15 C12.5 15 10 13 10 10Z" fill="#1565c0" opacity="0.8"/>
+                    </svg>
+                    <div class="company-info">
+                        <h1>ENTREPRISE PLOMBERIE</h1>
+                        <div class="subtitle">SANITAIRE - CHAUFFAGE</div>
+                        <p><strong>M. Jean-Marc GIGNAC</strong></p>
+                        <p>11 avenue Pierre Semard - 06150 CANNES LA BOCCA</p>
+                        <p>Tél. 07 85 40 33 98</p>
+                        <p>SIRET : 490 581 006 00031</p>
+                    </div>
+                </div>
+                <div class="document-number">Facture N° <span id="factureNumber">1</span></div>
+            </div>
+
+            <div class="facture-specific">
+                <h4>Informations de facturation</h4>
+                <div class="form-group">
+                    <label>Date d'échéance</label>
+                    <input type="date" id="facture-echeance">
+                </div>
+                <div class="form-group">
+                    <label>Conditions de paiement</label>
+                    <select id="facture-conditions">
+                        <option value="30">30 jours</option>
+                        <option value="60">60 jours</option>
+                        <option value="immediat">Paiement immédiat</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="client-section">
+                <div class="client-info">
+                    <h3>FACTURÉ À</h3>
+                    <div class="form-group">
+                        <label>Nom de l'entreprise / Client</label>
+                        <input type="text" id="facture-clientName" placeholder="Nom du client">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <textarea id="facture-clientAddress" placeholder="Adresse complète"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>SIRET (optionnel)</label>
+                        <input type="text" id="facture-clientSiret" placeholder="SIRET du client">
+                    </div>
+                </div>
+                <div class="document-info">
+                    <h3>INFORMATIONS FACTURE</h3>
+                    <div class="form-group">
+                        <label>Date de facture</label>
+                        <input type="date" id="facture-date">
+                    </div>
+                    <div class="form-group">
+                        <label>Date de prestation</label>
+                        <input type="date" id="facture-prestationDate">
+                    </div>
+                    <div class="form-group">
+                        <label>TVA applicable</label>
+                        <select id="facture-globalTvaSelect" onchange="applyGlobalTva('facture')">
+                            <option value="0" selected>0%</option>
+                            <option value="0.10">10%</option>
+                            <option value="0.20">20%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="items-section">
+                <h3>PRESTATIONS FACTURÉES</h3>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th style="width:38%">DÉSIGNATION</th>
+                            <th style="width:12%">QUANTITÉ</th>
+                            <th style="width:14%">PRIX UNITAIRE</th>
+                            <th style="width:13%">TOTAL HT</th>
+                            <th class="tva-header" style="width:13%">TVA (0%)</th>
+                            <th style="width:5%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="facture-itemsTable">
+                        <tr>
+                            <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('facture')"></textarea></td>
+                            <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'facture')"></td>
+                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'facture')"></td>
+                            <td class="total-cell">0.00 €</td>
+                            <td class="tva-cell">-</td>
+                            <td><button class="remove-btn" onclick="removeRow(this,'facture')">🗑️</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="add-item-btn" onclick="addItem('facture')">+ Ajouter une ligne</button>
+            </div>
+
+            <div class="totals">
+                <div class="total-row"><span>Total HT :</span><span id="facture-totalHT">0.00 €</span></div>
+                <div class="total-row"><span id="facture-tvaLabel">TVA :</span><span id="facture-totalTVA">0.00 €</span></div>
+                <div class="total-row final"><span>Total TTC :</span><span id="facture-totalTTC">0.00 €</span></div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="generatePDF()">Imprimer / PDF</button>
+                <button class="btn btn-success" onclick="newDocument('facture')">Nouvelle facture</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDevisNumber = parseInt(localStorage.getItem('gignac-devisNumber')) || 1;
+        let currentFactureNumber = parseInt(localStorage.getItem('gignac-factureNumber')) || 1;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDocument('devis');
+            initializeDocument('facture');
+            document.getElementById('devisNumber').textContent = currentDevisNumber;
+            document.getElementById('factureNumber').textContent = currentFactureNumber;
+        });
+
+        function switchTab(tabName, event) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName + '-content').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function initializeDocument(type) {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById(type + '-date').value = today;
+            if (type === 'devis') {
+                const v = new Date(); v.setDate(v.getDate() + 30);
+                document.getElementById(type + '-validUntil').value = v.toISOString().split('T')[0];
+            } else {
+                document.getElementById(type + '-prestationDate').value = today;
+                const e = new Date(); e.setDate(e.getDate() + 30);
+                document.getElementById(type + '-echeance').value = e.toISOString().split('T')[0];
+            }
+            applyGlobalTva(type);
+        }
+
+        function calculateRow(input, type) {
+            const row = input.closest('tr');
+            const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+            const price = parseFloat(row.querySelector('.price-input').value) || 0;
+            const totalHT = qty * price;
+            row.querySelector('.total-cell').textContent = totalHT.toFixed(2) + ' €';
+            const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
+            row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (totalHT * taux).toFixed(2) + ' €';
+            calculateTotals(type);
+        }
+
+        function calculateTotals(type) {
+            let totalHT = 0, totalTVA = 0;
+            const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
+            document.querySelectorAll('#' + type + '-itemsTable tr').forEach(row => {
+                const q = row.querySelector('.qty-input');
+                const p = row.querySelector('.price-input');
+                if (!q || !p) return;
+                const line = (parseFloat(q.value) || 0) * (parseFloat(p.value) || 0);
+                totalHT += line;
+                if (taux !== 0) totalTVA += line * taux;
+            });
+            document.getElementById(type + '-totalHT').textContent = totalHT.toFixed(2) + ' €';
+            if (taux === 0) {
+                document.getElementById(type + '-totalTVA').textContent = '-';
+                document.getElementById(type + '-totalTTC').textContent = totalHT.toFixed(2) + ' €';
+            } else {
+                document.getElementById(type + '-totalTVA').textContent = totalTVA.toFixed(2) + ' €';
+                document.getElementById(type + '-totalTTC').textContent = (totalHT + totalTVA).toFixed(2) + ' €';
+            }
+        }
+
+        function addItem(type) {
+            const tbody = document.getElementById(type + '-itemsTable');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('${type}')"></textarea></td>
+                <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'${type}')"></td>
+                <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'${type}')"></td>
+                <td class="total-cell">0.00 €</td>
+                <td class="tva-cell">-</td>
+                <td><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        function removeRow(btn, type) {
+            btn.closest('tr').remove();
+            calculateTotals(type);
+        }
+
+        function newDocument(type) {
+            if (type === 'devis') {
+                currentDevisNumber++;
+                localStorage.setItem('gignac-devisNumber', currentDevisNumber);
+                document.getElementById('devisNumber').textContent = currentDevisNumber;
+            } else {
+                currentFactureNumber++;
+                localStorage.setItem('gignac-factureNumber', currentFactureNumber);
+                document.getElementById('factureNumber').textContent = currentFactureNumber;
+            }
+            document.getElementById(type + '-clientName').value = '';
+            document.getElementById(type + '-clientAddress').value = '';
+            document.getElementById(type + '-clientSiret').value = '';
+            initializeDocument(type);
+            document.getElementById(type + '-itemsTable').innerHTML = `
+                <tr>
+                    <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('${type}')"></textarea></td>
+                    <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'${type}')"></td>
+                    <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'${type}')"></td>
+                    <td class="total-cell">0.00 €</td>
+                    <td class="tva-cell">-</td>
+                    <td><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
+                </tr>
+            `;
+            calculateTotals(type);
+        }
+
+        function generatePDF() { window.print(); }
+
+        function applyGlobalTva(type) {
+            const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
+            const header = document.querySelector('#' + type + '-content .tva-header');
+            if (header) header.textContent = taux === 0 ? 'TVA' : `TVA (${(taux*100).toFixed(0)}%)`;
+            const label = document.getElementById(type + '-tvaLabel');
+            if (label) label.textContent = taux === 0 ? 'TVA non applicable - Art. 293 B du CGI' : `TVA (${(taux*100).toFixed(0)}%) :`;
+            document.querySelectorAll('#' + type + '-itemsTable tr').forEach(row => {
+                const q = row.querySelector('.qty-input');
+                const p = row.querySelector('.price-input');
+                if (!q || !p) return;
+                const line = (parseFloat(q.value) || 0) * (parseFloat(p.value) || 0);
+                row.querySelector('.total-cell').textContent = line.toFixed(2) + ' €';
+                row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (line * taux).toFixed(2) + ' €';
+            });
+            calculateTotals(type);
+        }
+
+        document.getElementById('facture-conditions').addEventListener('change', function() {
+            const d = new Date(document.getElementById('facture-date').value);
+            if (this.value === 'immediat') {
+                document.getElementById('facture-echeance').value = document.getElementById('facture-date').value;
+            } else {
+                d.setDate(d.getDate() + parseInt(this.value));
+                document.getElementById('facture-echeance').value = d.toISOString().split('T')[0];
+            }
+        });
+
+        document.getElementById('facture-date').addEventListener('change', function() {
+            const cond = document.getElementById('facture-conditions').value;
+            const d = new Date(this.value);
+            if (cond === 'immediat') {
+                document.getElementById('facture-echeance').value = this.value;
+            } else {
+                d.setDate(d.getDate() + parseInt(cond));
+                document.getElementById('facture-echeance').value = d.toISOString().split('T')[0];
+            }
+        });
+    </script>
+</body>
+</html>
