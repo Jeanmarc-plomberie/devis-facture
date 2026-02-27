@@ -53,103 +53,77 @@
             border-bottom: 2px solid #ddd;
         }
         .logo-section { display: flex; align-items: center; }
-        .logo { width: 55px; height: 55px; margin-right: 15px; }
-        .company-info h1 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: 900;
-            color: #1a1a1a;
-            letter-spacing: 1px;
-        }
-        .company-info .subtitle {
-            font-size: 13px;
-            font-weight: bold;
-            color: #1565c0;
-            margin: 1px 0 4px 0;
-        }
-        .company-info p {
-            margin: 1px 0;
-            font-size: 12px;
-            color: #555;
-        }
-        .document-number { font-size: 20px; font-weight: bold; color: #333; }
+        .logo { width: 55px; height: 55px; margin-right: 15px; flex-shrink: 0; }
+        .company-info h1 { margin: 0; font-size: 18px; font-weight: 900; color: #1a1a1a; letter-spacing: 1px; }
+        .company-info .subtitle { font-size: 13px; font-weight: bold; color: #1565c0; margin: 1px 0 4px 0; }
+        .company-info p { margin: 1px 0; font-size: 12px; color: #555; }
+        .document-number { font-size: 20px; font-weight: bold; color: #333; white-space: nowrap; }
         .client-section { display: flex; justify-content: space-between; margin-bottom: 30px; }
         .client-info, .document-info { width: 48%; }
-        .client-info h3, .document-info h3 {
-            margin: 0 0 10px 0;
-            font-size: 16px;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
+        .client-info h3, .document-info h3 { margin: 0 0 10px 0; font-size: 16px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
         .form-group { margin-bottom: 10px; }
         .form-group label { display: block; font-size: 12px; color: #666; margin-bottom: 2px; }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;
         }
         .form-group textarea { height: 60px; resize: vertical; }
+
+        /* Div éditable auto-expansible — remplace textarea dans le tableau */
+        .editable-cell {
+            min-height: 38px;
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            font-size: 13px;
+            font-family: Arial, sans-serif;
+            white-space: pre-wrap;
+            word-break: break-word;
+            box-sizing: border-box;
+            outline: none;
+            overflow: hidden; /* Jamais de scrollbar */
+            line-height: 1.5;
+        }
+        .editable-cell:empty::before {
+            content: attr(data-placeholder);
+            color: #bbb;
+            pointer-events: none;
+        }
+        .editable-cell:focus { border-color: #1565c0; }
+
         .items-section { margin: 30px 0; }
         .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .items-table th, .items-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        .items-table th { background-color: #f0f4ff; font-weight: bold; }
-        .items-table input { width: 100%; border: none; background: transparent; font-size: 14px; }
-        .items-table textarea { width: 100%; border: none; background: transparent; font-size: 14px; resize: vertical; }
-        .add-item-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .items-table th, .items-table td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+        .items-table th { background-color: #f0f4ff; font-weight: bold; font-size: 13px; }
+        .items-table input[type="number"] { width: 100%; border: none; background: transparent; font-size: 14px; outline: none; }
+        .add-item-btn { background-color: #28a745; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
         .add-item-btn:hover { background-color: #218838; }
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
+        .remove-btn { background-color: #dc3545; color: white; border: none; padding: 5px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; }
         .remove-btn:hover { background-color: #c82333; }
-        .totals {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f0f4ff;
-            border-radius: 4px;
-        }
+        .totals { margin-top: 30px; padding: 20px; background-color: #f0f4ff; border-radius: 4px; }
         .total-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .total-row.final {
-            font-weight: bold;
-            font-size: 18px;
-            border-top: 2px solid #333;
-            padding-top: 10px;
-        }
+        .total-row.final { font-weight: bold; font-size: 18px; border-top: 2px solid #333; padding-top: 10px; }
         .actions { margin-top: 30px; text-align: center; }
         .btn { padding: 12px 24px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
         .btn-primary { background-color: #1565c0; color: white; }
         .btn-success { background-color: #28a745; color: white; }
         .btn:hover { opacity: 0.9; }
-        .facture-specific {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+        .facture-specific { background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 15px; margin-bottom: 20px; }
         .facture-specific h4 { margin: 0 0 10px 0; color: #856404; }
+
         @media print {
             .tabs, .actions, .add-item-btn, .remove-btn { display: none !important; }
-            body { background: white; }
-            .container { box-shadow: none; }
-            .tab-content { padding: 0 !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border-radius: 0; }
+            .tab-content { padding: 15px !important; }
+            .editable-cell {
+                border: none !important;
+                padding: 2px 0 !important;
+                overflow: visible !important;
+                min-height: unset !important;
+            }
+            .items-table input[type="number"] { border: none !important; }
+            .form-group input, .form-group select, .form-group textarea { border: none !important; padding: 2px 0 !important; }
         }
     </style>
 </head>
@@ -164,15 +138,11 @@
         <div id="devis-content" class="tab-content active">
             <div class="header">
                 <div class="logo-section">
-                    <!-- Icône plomberie/chauffage SVG -->
                     <svg class="logo" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Clé à molette -->
                         <circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/>
                         <circle cx="18" cy="37" r="3" fill="#1565c0"/>
                         <rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/>
-                        <!-- Flamme -->
                         <path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/>
-                        <!-- Goutte d'eau -->
                         <path d="M10 10 C10 6 15 2 15 2 C15 2 20 6 20 10 C20 13 17.5 15 15 15 C12.5 15 10 13 10 10Z" fill="#1565c0" opacity="0.8"/>
                     </svg>
                     <div class="company-info">
@@ -233,15 +203,15 @@
                             <th style="width:12%">QUANTITÉ</th>
                             <th style="width:14%">PRIX UNITAIRE</th>
                             <th style="width:13%">TOTAL HT</th>
-                            <th class="tva-header" style="width:13%">TVA (0%)</th>
+                            <th class="tva-header" style="width:13%">TVA</th>
                             <th style="width:5%">Action</th>
                         </tr>
                     </thead>
                     <tbody id="devis-itemsTable">
                         <tr>
-                            <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('devis')"></textarea></td>
-                            <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'devis')"></td>
-                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'devis')"></td>
+                            <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
+                            <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'devis')"></td>
+                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'devis')"></td>
                             <td class="total-cell">0.00 €</td>
                             <td class="tva-cell">-</td>
                             <td><button class="remove-btn" onclick="removeRow(this,'devis')">🗑️</button></td>
@@ -253,7 +223,7 @@
 
             <div class="totals">
                 <div class="total-row"><span>Total HT :</span><span id="devis-totalHT">0.00 €</span></div>
-                <div class="total-row"><span id="devis-tvaLabel">TVA :</span><span id="devis-totalTVA">0.00 €</span></div>
+                <div class="total-row"><span id="devis-tvaLabel">TVA non applicable - Art. 293 B du CGI</span><span id="devis-totalTVA">-</span></div>
                 <div class="total-row final"><span>Total TTC :</span><span id="devis-totalTTC">0.00 €</span></div>
             </div>
 
@@ -348,15 +318,15 @@
                             <th style="width:12%">QUANTITÉ</th>
                             <th style="width:14%">PRIX UNITAIRE</th>
                             <th style="width:13%">TOTAL HT</th>
-                            <th class="tva-header" style="width:13%">TVA (0%)</th>
+                            <th class="tva-header" style="width:13%">TVA</th>
                             <th style="width:5%">Action</th>
                         </tr>
                     </thead>
                     <tbody id="facture-itemsTable">
                         <tr>
-                            <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('facture')"></textarea></td>
-                            <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'facture')"></td>
-                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'facture')"></td>
+                            <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
+                            <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'facture')"></td>
+                            <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'facture')"></td>
                             <td class="total-cell">0.00 €</td>
                             <td class="tva-cell">-</td>
                             <td><button class="remove-btn" onclick="removeRow(this,'facture')">🗑️</button></td>
@@ -368,7 +338,7 @@
 
             <div class="totals">
                 <div class="total-row"><span>Total HT :</span><span id="facture-totalHT">0.00 €</span></div>
-                <div class="total-row"><span id="facture-tvaLabel">TVA :</span><span id="facture-totalTVA">0.00 €</span></div>
+                <div class="total-row"><span id="facture-tvaLabel">TVA non applicable - Art. 293 B du CGI</span><span id="facture-totalTVA">-</span></div>
                 <div class="total-row final"><span>Total TTC :</span><span id="facture-totalTTC">0.00 €</span></div>
             </div>
 
@@ -447,9 +417,9 @@
             const tbody = document.getElementById(type + '-itemsTable');
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('${type}')"></textarea></td>
-                <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'${type}')"></td>
-                <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'${type}')"></td>
+                <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
+                <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'${type}')"></td>
+                <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'${type}')"></td>
                 <td class="total-cell">0.00 €</td>
                 <td class="tva-cell">-</td>
                 <td><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
@@ -478,9 +448,9 @@
             initializeDocument(type);
             document.getElementById(type + '-itemsTable').innerHTML = `
                 <tr>
-                    <td><textarea placeholder="Description de la prestation" rows="2" onchange="calculateTotals('${type}')"></textarea></td>
-                    <td><input type="number" class="qty-input" placeholder="1" onchange="calculateRow(this,'${type}')"></td>
-                    <td><input type="number" class="price-input" placeholder="0.00" step="0.01" onchange="calculateRow(this,'${type}')"></td>
+                    <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
+                    <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'${type}')"></td>
+                    <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'${type}')"></td>
                     <td class="total-cell">0.00 €</td>
                     <td class="tva-cell">-</td>
                     <td><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
