@@ -77,12 +77,14 @@
             border-radius: 3px;
             font-size: 13px;
             font-family: Arial, sans-serif;
-            white-space: pre-wrap;
-            word-break: break-word;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
             box-sizing: border-box;
             outline: none;
-            overflow: hidden; /* Jamais de scrollbar */
+            overflow: visible;
             line-height: 1.5;
+            display: block;
         }
         .editable-cell:empty::before {
             content: attr(data-placeholder);
@@ -199,11 +201,11 @@
                 <table class="items-table">
                     <thead>
                         <tr>
-                            <th style="width:38%">DÉSIGNATION</th>
-                            <th style="width:12%">QUANTITÉ</th>
-                            <th style="width:14%">PRIX UNITAIRE</th>
-                            <th style="width:13%">TOTAL HT</th>
-                            <th class="tva-header" style="width:13%">TVA</th>
+                            <th style="width:50%">DÉSIGNATION</th>
+                            <th style="width:9%">QUANTITÉ</th>
+                            <th style="width:11%">PRIX UNITAIRE</th>
+                            <th style="width:11%">TOTAL HT</th>
+                            <th class="tva-header" style="width:10%">TVA</th>
                             <th style="width:5%">Action</th>
                         </tr>
                     </thead>
@@ -314,11 +316,11 @@
                 <table class="items-table">
                     <thead>
                         <tr>
-                            <th style="width:38%">DÉSIGNATION</th>
-                            <th style="width:12%">QUANTITÉ</th>
-                            <th style="width:14%">PRIX UNITAIRE</th>
-                            <th style="width:13%">TOTAL HT</th>
-                            <th class="tva-header" style="width:13%">TVA</th>
+                            <th style="width:50%">DÉSIGNATION</th>
+                            <th style="width:9%">QUANTITÉ</th>
+                            <th style="width:11%">PRIX UNITAIRE</th>
+                            <th style="width:11%">TOTAL HT</th>
+                            <th class="tva-header" style="width:10%">TVA</th>
                             <th style="width:5%">Action</th>
                         </tr>
                     </thead>
