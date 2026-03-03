@@ -14,6 +14,8 @@
         .tab:hover:not(.active) { background-color: #dee2e6; }
         .tab-content { display: none; padding: 30px; }
         .tab-content.active { display: block; }
+        
+        /* Header */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #ddd; }
         .logo-section { display: flex; align-items: center; }
         .logo { width: 55px; height: 55px; margin-right: 15px; flex-shrink: 0; }
@@ -21,6 +23,8 @@
         .company-info .subtitle { font-size: 13px; font-weight: bold; color: #1565c0; margin: 1px 0 4px 0; }
         .company-info p { margin: 1px 0; font-size: 12px; color: #555; }
         .document-number { font-size: 20px; font-weight: bold; color: #333; white-space: nowrap; }
+
+        /* Form styling */
         .client-section { display: flex; justify-content: space-between; margin-bottom: 20px; }
         .client-info, .document-info { width: 48%; }
         .client-info h3, .document-info h3 { margin: 0 0 10px 0; font-size: 16px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
@@ -28,79 +32,69 @@
         .form-group label { display: block; font-size: 12px; color: #666; margin-bottom: 2px; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
         .form-group textarea { height: 60px; resize: vertical; }
+
+        /* Table styling */
         .items-section { margin: 15px 0; }
-        .items-section h3 { margin-bottom: 8px; }
         .items-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        .items-table th, .items-table td { border: 1px solid #ddd; padding: 4px 6px; text-align: left; vertical-align: bottom; }
-        .items-table th { background-color: #f0f4ff; font-weight: bold; font-size: 13px; vertical-align: middle; }
-        .items-table td { overflow-wrap: break-word; word-break: break-word; }
-        .category-row td { background-color: #e8f0fe; font-weight: bold; font-size: 13px; padding: 5px 6px; border: 1px solid #c5d5f5; }
-        .editable-cell { min-height: 32px; width: 100%; padding: 3px 5px; border: 1px solid #e0e0e0; border-radius: 3px; font-size: 13px; font-family: Arial, sans-serif; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box; outline: none; overflow: visible; line-height: 1.4; display: block; }
-        .editable-cell:empty::before { content: attr(data-placeholder); color: #bbb; pointer-events: none; }
-        .editable-cell:focus { border-color: #1565c0; }
-        .category-row .editable-cell { font-weight: bold; background: transparent; border: 1px solid #c5d5f5; }
-        .items-table input[type="number"] { width: 100%; border: none; background: transparent; font-size: 12px; outline: none; min-width: 0; }
-        .btn-row-group { display: flex; gap: 4px; margin-bottom: 8px; }
-        .add-item-btn { background-color: #28a745; color: white; padding: 7px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
-        .add-cat-btn { background-color: #1565c0; color: white; padding: 7px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
-        .add-item-btn:hover { background-color: #218838; }
-        .add-cat-btn:hover { background-color: #0d47a1; }
-        .remove-btn { background-color: #dc3545; color: white; border: none; padding: 4px 7px; border-radius: 3px; cursor: pointer; font-size: 11px; }
-        .remove-btn:hover { background-color: #c82333; }
+        .items-table th, .items-table td { border: 1px solid #ddd; padding: 6px; text-align: left; }
+        .items-table th { background-color: #f0f4ff; font-weight: bold; font-size: 13px; }
+        
+        /* Category Rows & Subtotals */
+        .category-row td { background-color: #e8f0fe; font-weight: bold; border: 1px solid #c5d5f5; }
+        .subtotal-badge { float: right; font-size: 0.85em; color: #1565c0; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #1565c0; }
+        
+        .editable-cell { min-height: 20px; width: 100%; outline: none; font-size: 13px; }
+        .qty-input, .price-input { width: 100%; border: none; background: transparent; font-size: 13px; outline: none; }
+
+        /* Totals & Conditions */
         .totals { margin-top: 15px; padding: 15px; background-color: #f0f4ff; border-radius: 4px; }
         .total-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
         .total-row.final { font-weight: bold; font-size: 18px; border-top: 2px solid #333; padding-top: 10px; }
+        
         .conditions-section { margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 4px; }
-        .conditions-section h4 { margin: 0 0 10px 0; font-size: 14px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
         .conditions-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
-        .conditions-table th, .conditions-table td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; text-align: left; }
-        .conditions-table th { background-color: #f0f4ff; font-weight: bold; }
-        .conditions-table input[type="text"], .conditions-table input[type="number"] { width: 90%; border: none; background: transparent; font-size: 13px; outline: none; }
-        .add-condition-btn { background-color: #6c757d; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
-        .add-condition-btn:hover { background-color: #5a6268; }
+        .conditions-table th, .conditions-table td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; }
+        
         .signature-section { margin-top: 20px; display: flex; justify-content: space-between; gap: 20px; }
-        .signature-box { flex: 1; border: 1px solid #ddd; border-radius: 4px; padding: 12px; }
-        .signature-box h5 { margin: 0 0 8px 0; font-size: 13px; color: #333; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 6px; }
-        .signature-line { border-top: 1px solid #999; margin-top: 60px; padding-top: 4px; font-size: 11px; color: #888; text-align: center; }
-        .signature-date { font-size: 12px; color: #555; margin-bottom: 5px; }
-        .actions { margin-top: 20px; text-align: center; }
-        .btn { padding: 12px 24px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .signature-box { flex: 1; border: 1px solid #ddd; border-radius: 4px; padding: 12px; height: 120px; position: relative; }
+        .signature-line { position: absolute; bottom: 10px; left: 10px; right: 10px; border-top: 1px solid #999; text-align: center; font-size: 10px; }
+
+        /* Buttons */
+        .btn-row-group { display: flex; gap: 8px; margin-bottom: 15px; }
+        .add-item-btn { background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        .add-cat-btn { background-color: #1565c0; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        .remove-btn { background-color: transparent; border: none; cursor: pointer; font-size: 14px; }
+        .actions { margin-top: 30px; text-align: center; }
+        .btn { padding: 12px 25px; margin: 0 10px; border-radius: 4px; cursor: pointer; font-weight: bold; border: none; }
         .btn-primary { background-color: #1565c0; color: white; }
         .btn-success { background-color: #28a745; color: white; }
-        .btn:hover { opacity: 0.9; }
-        .facture-specific { background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 15px; margin-bottom: 20px; }
-        .facture-specific h4 { margin: 0 0 10px 0; color: #856404; }
+
         @media print {
-            .tabs, .actions, .add-item-btn, .add-cat-btn, .remove-btn, .add-condition-btn, .btn-row-group { display: none !important; }
-            .no-print { display: none !important; }
+            .tabs, .actions, .btn-row-group, .remove-btn, .add-condition-btn, .no-print { display: none !important; }
             body { background: white; padding: 0; }
-            .container { box-shadow: none; border-radius: 0; }
-            .tab-content { padding: 15px !important; }
-            .editable-cell { border: none !important; padding: 2px 0 !important; overflow: visible !important; min-height: unset !important; }
-            .items-table input[type="number"] { border: none !important; }
-            .form-group input, .form-group select, .form-group textarea { border: none !important; padding: 2px 0 !important; }
-            .conditions-table input { border: none !important; }
-            .signature-section { page-break-inside: avoid; }
+            .container { box-shadow: none; max-width: 100%; }
+            .editable-cell { border: none; }
+            .items-table th { background-color: #f0f4ff !important; -webkit-print-color-adjust: exact; }
+            .category-row td { background-color: #e8f0fe !important; -webkit-print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
+
 <div class="container">
     <div class="tabs">
         <div class="tab active" onclick="switchTab('devis', event)">Devis</div>
         <div class="tab" onclick="switchTab('facture', event)">Facture</div>
     </div>
 
-    <!-- DEVIS -->
     <div id="devis-content" class="tab-content active">
         <div class="header">
             <div class="logo-section">
-                <svg class="logo" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo" viewBox="0 0 55 55">
                     <circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/>
                     <circle cx="18" cy="37" r="3" fill="#1565c0"/>
                     <rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/>
                     <path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/>
-                    <path d="M10 10 C10 6 15 2 15 2 C15 2 20 6 20 10 C20 13 17.5 15 15 15 C12.5 15 10 13 10 10Z" fill="#1565c0" opacity="0.8"/>
                 </svg>
                 <div class="company-info">
                     <h1>ENTREPRISE PLOMBERIE</h1>
@@ -118,15 +112,14 @@
                 <h3>DESTINATAIRE</h3>
                 <div class="form-group"><label>Nom / Client</label><input type="text" id="devis-clientName" placeholder="Nom du client"></div>
                 <div class="form-group"><label>Adresse</label><textarea id="devis-clientAddress" placeholder="Adresse complète"></textarea></div>
-                <div class="form-group"><label>SIRET (optionnel)</label><input type="text" id="devis-clientSiret" placeholder="SIRET du client"></div>
             </div>
             <div class="document-info">
-                <h3>INFORMATIONS DEVIS</h3>
+                <h3>INFORMATIONS</h3>
                 <div class="form-group"><label>Date</label><input type="date" id="devis-date"></div>
                 <div class="form-group"><label>Valable jusqu'au</label><input type="date" id="devis-validUntil"></div>
                 <div class="form-group"><label>TVA applicable</label>
                     <select id="devis-globalTvaSelect" onchange="applyGlobalTva('devis')">
-                        <option value="0" selected>0%</option>
+                        <option value="0" selected>0% (Auto-entrepreneur)</option>
                         <option value="0.10">10%</option>
                         <option value="0.20">20%</option>
                     </select>
@@ -135,143 +128,107 @@
         </div>
 
         <div class="items-section">
-            <h3>PRESTATIONS</h3>
             <table class="items-table">
                 <thead>
                     <tr>
-                        <th style="width:60%">DÉSIGNATION</th>
-                        <th style="width:6%">QTÉ</th>
-                        <th style="width:13%">P.U.</th>
-                        <th style="width:13%">TOTAL HT</th>
-                        <th class="tva-header" style="width:5%">TVA</th>
+                        <th style="width:55%">DÉSIGNATION</th>
+                        <th style="width:8%">QTÉ</th>
+                        <th style="width:12%">P.U. HT</th>
+                        <th style="width:12%">TOTAL HT</th>
+                        <th class="tva-header" style="width:10%">TVA</th>
                         <th class="no-print" style="width:3%"></th>
                     </tr>
                 </thead>
                 <tbody id="devis-itemsTable">
-                    <tr>
-                        <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
-                        <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'devis')"></td>
-                        <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'devis')"></td>
-                        <td class="total-cell">0.00 €</td>
-                        <td class="tva-cell">-</td>
-                        <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'devis')">🗑️</button></td>
-                    </tr>
-                </tbody>
+                    </tbody>
             </table>
             <div class="btn-row-group">
-                <button class="add-item-btn" onclick="addItem('devis')">+ Ligne prestation</button>
                 <button class="add-cat-btn" onclick="addCategory('devis')">+ Titre catégorie</button>
+                <button class="add-item-btn" onclick="addItem('devis')">+ Ligne prestation</button>
             </div>
         </div>
 
         <div class="totals">
             <div class="total-row"><span>Total HT :</span><span id="devis-totalHT">0.00 €</span></div>
-            <div class="total-row"><span id="devis-tvaLabel">TVA non applicable - Art. 293 B du CGI</span><span id="devis-totalTVA">-</span></div>
+            <div class="total-row"><span id="devis-tvaLabel">TVA non applicable</span><span id="devis-totalTVA">-</span></div>
             <div class="total-row final"><span>Total TTC :</span><span id="devis-totalTTC">0.00 €</span></div>
         </div>
 
         <div class="conditions-section">
-            <h4>CONDITIONS DE RÈGLEMENT</h4>
+            <h4>ÉCHÉANCES DE PAIEMENT</h4>
             <table class="conditions-table">
                 <thead>
                     <tr>
-                        <th style="width:55%">Échéance</th>
-                        <th style="width:22%">Pourcentage</th>
-                        <th style="width:18%">Montant</th>
+                        <th>Libellé de l'échéance</th>
+                        <th style="width:15%">%</th>
+                        <th style="width:25%">Montant calculé</th>
                         <th class="no-print" style="width:5%"></th>
                     </tr>
                 </thead>
                 <tbody id="devis-conditionsTable">
                     <tr>
-                        <td><input type="text" class="cond-label" placeholder="30% à la commande" oninput="updateConditions('devis')"></td>
-                        <td><input type="number" class="cond-pct" placeholder="30" min="0" max="100" oninput="updateConditions('devis')"> %</td>
+                        <td><input type="text" class="cond-label" value="Acompte à la signature" oninput="updateConditions('devis')"></td>
+                        <td><input type="number" class="cond-pct" value="30" oninput="updateConditions('devis')"></td>
                         <td class="cond-amount">0.00 €</td>
-                        <td class="no-print"><button class="remove-btn" onclick="removeCondition(this)">🗑️</button></td>
+                        <td class="no-print"></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="cond-label" placeholder="60% travaux en cours" oninput="updateConditions('devis')"></td>
-                        <td><input type="number" class="cond-pct" placeholder="60" min="0" max="100" oninput="updateConditions('devis')"> %</td>
+                        <td><input type="text" class="cond-label" value="Solde fin de travaux" oninput="updateConditions('devis')"></td>
+                        <td><input type="number" class="cond-pct" value="70" oninput="updateConditions('devis')"></td>
                         <td class="cond-amount">0.00 €</td>
-                        <td class="no-print"><button class="remove-btn" onclick="removeCondition(this)">🗑️</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="cond-label" placeholder="10% à la réception des travaux" oninput="updateConditions('devis')"></td>
-                        <td><input type="number" class="cond-pct" placeholder="10" min="0" max="100" oninput="updateConditions('devis')"> %</td>
-                        <td class="cond-amount">0.00 €</td>
-                        <td class="no-print"><button class="remove-btn" onclick="removeCondition(this)">🗑️</button></td>
+                        <td class="no-print"></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="add-condition-btn no-print" onclick="addCondition('devis')">+ Ajouter une échéance</button>
+            <button class="add-cat-btn no-print" style="padding: 5px 10px; font-size: 11px;" onclick="addCondition('devis')">+ Ajouter échéance</button>
         </div>
 
         <div class="signature-section">
             <div class="signature-box">
-                <h5>BON POUR ACCORD — L'ENTREPRISE</h5>
-                <div class="signature-date">Date : ___________________</div>
-                <div class="signature-line">Signature et cachet</div>
+                <strong>L'entreprise</strong>
+                <div class="signature-line">Cachet et signature</div>
             </div>
             <div class="signature-box">
-                <h5>BON POUR ACCORD — LE CLIENT</h5>
-                <div class="signature-date">Date : ___________________</div>
-                <div class="signature-line">Signature précédée de "Lu et approuvé"</div>
+                <strong>Le Client</strong>
+                <p style="font-size: 10px; margin-top: 5px;">Mention "Bon pour accord"</p>
+                <div class="signature-line">Date et Signature</div>
             </div>
         </div>
 
         <div class="actions">
-            <button class="btn btn-primary" onclick="generatePDF()">Imprimer / PDF</button>
-            <button class="btn btn-success" onclick="newDocument('devis')">Nouveau devis</button>
+            <button class="btn btn-primary" onclick="window.print()">Imprimer / PDF</button>
+            <button class="btn btn-success" onclick="newDocument('devis')">Nouveau Devis</button>
         </div>
     </div>
 
-    <!-- FACTURE -->
     <div id="facture-content" class="tab-content">
         <div class="header">
             <div class="logo-section">
-                <svg class="logo" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo" viewBox="0 0 55 55">
                     <circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/>
-                    <circle cx="18" cy="37" r="3" fill="#1565c0"/>
-                    <rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/>
                     <path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/>
-                    <path d="M10 10 C10 6 15 2 15 2 C15 2 20 6 20 10 C20 13 17.5 15 15 15 C12.5 15 10 13 10 10Z" fill="#1565c0" opacity="0.8"/>
                 </svg>
                 <div class="company-info">
                     <h1>ENTREPRISE PLOMBERIE</h1>
-                    <div class="subtitle">SANITAIRE - CHAUFFAGE</div>
+                    <div class="subtitle">FACTURATION</div>
                     <p><strong>M. Jean-Marc GIGNAC</strong></p>
-                    <p>11 avenue Pierre Semard - 06150 CANNES LA BOCCA</p>
-                    <p>Tél. 07 85 40 33 98 | SIRET : 490 581 006 00031</p>
                 </div>
             </div>
             <div class="document-number">Facture N° <span id="factureNumber">1</span></div>
         </div>
-
-        <div class="facture-specific">
-            <h4>Informations de facturation</h4>
-            <div class="form-group"><label>Date d'échéance</label><input type="date" id="facture-echeance"></div>
-            <div class="form-group"><label>Conditions de paiement</label>
-                <select id="facture-conditions">
-                    <option value="30">30 jours</option>
-                    <option value="60">60 jours</option>
-                    <option value="immediat">Paiement immédiat</option>
-                </select>
-            </div>
-        </div>
-
+        
         <div class="client-section">
             <div class="client-info">
-                <h3>FACTURÉ À</h3>
-                <div class="form-group"><label>Nom / Client</label><input type="text" id="facture-clientName" placeholder="Nom du client"></div>
-                <div class="form-group"><label>Adresse</label><textarea id="facture-clientAddress" placeholder="Adresse complète"></textarea></div>
-                <div class="form-group"><label>SIRET (optionnel)</label><input type="text" id="facture-clientSiret" placeholder="SIRET du client"></div>
+                <h3>CLIENT</h3>
+                <div class="form-group"><input type="text" id="facture-clientName" placeholder="Nom du client"></div>
+                <div class="form-group"><textarea id="facture-clientAddress" placeholder="Adresse"></textarea></div>
             </div>
             <div class="document-info">
-                <h3>INFORMATIONS FACTURE</h3>
+                <h3>INFOS FACTURE</h3>
                 <div class="form-group"><label>Date de facture</label><input type="date" id="facture-date"></div>
-                <div class="form-group"><label>Date de prestation</label><input type="date" id="facture-prestationDate"></div>
-                <div class="form-group"><label>TVA applicable</label>
+                <div class="form-group"><label>TVA</label>
                     <select id="facture-globalTvaSelect" onchange="applyGlobalTva('facture')">
-                        <option value="0" selected>0%</option>
+                        <option value="0">0%</option>
                         <option value="0.10">10%</option>
                         <option value="0.20">20%</option>
                     </select>
@@ -280,44 +237,34 @@
         </div>
 
         <div class="items-section">
-            <h3>PRESTATIONS FACTURÉES</h3>
             <table class="items-table">
                 <thead>
                     <tr>
-                        <th style="width:60%">DÉSIGNATION</th>
-                        <th style="width:6%">QTÉ</th>
-                        <th style="width:13%">P.U.</th>
-                        <th style="width:13%">TOTAL HT</th>
-                        <th class="tva-header" style="width:5%">TVA</th>
+                        <th style="width:55%">DÉSIGNATION</th>
+                        <th style="width:8%">QTÉ</th>
+                        <th style="width:12%">P.U. HT</th>
+                        <th style="width:12%">TOTAL HT</th>
+                        <th class="tva-header" style="width:10%">TVA</th>
                         <th class="no-print" style="width:3%"></th>
                     </tr>
                 </thead>
-                <tbody id="facture-itemsTable">
-                    <tr>
-                        <td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>
-                        <td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,'facture')"></td>
-                        <td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,'facture')"></td>
-                        <td class="total-cell">0.00 €</td>
-                        <td class="tva-cell">-</td>
-                        <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'facture')">🗑️</button></td>
-                    </tr>
-                </tbody>
+                <tbody id="facture-itemsTable"></tbody>
             </table>
             <div class="btn-row-group">
-                <button class="add-item-btn" onclick="addItem('facture')">+ Ligne prestation</button>
                 <button class="add-cat-btn" onclick="addCategory('facture')">+ Titre catégorie</button>
+                <button class="add-item-btn" onclick="addItem('facture')">+ Ligne prestation</button>
             </div>
         </div>
 
         <div class="totals">
             <div class="total-row"><span>Total HT :</span><span id="facture-totalHT">0.00 €</span></div>
-            <div class="total-row"><span id="facture-tvaLabel">TVA non applicable - Art. 293 B du CGI</span><span id="facture-totalTVA">-</span></div>
+            <div class="total-row"><span>TVA :</span><span id="facture-totalTVA">-</span></div>
             <div class="total-row final"><span>Total TTC :</span><span id="facture-totalTTC">0.00 €</span></div>
         </div>
 
         <div class="actions">
-            <button class="btn btn-primary" onclick="generatePDF()">Imprimer / PDF</button>
-            <button class="btn btn-success" onclick="newDocument('facture')">Nouvelle facture</button>
+            <button class="btn btn-primary" onclick="window.print()">Imprimer Facture</button>
+            <button class="btn btn-success" onclick="newDocument('facture')">Nouvelle Facture</button>
         </div>
     </div>
 </div>
@@ -326,87 +273,57 @@
     let currentDevisNumber = parseInt(localStorage.getItem('gignac-devisNumber')) || 1;
     let currentFactureNumber = parseInt(localStorage.getItem('gignac-factureNumber')) || 1;
 
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeDocument('devis');
-        initializeDocument('facture');
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeDate('devis');
+        initializeDate('facture');
+        addItem('devis');
+        addItem('facture');
         document.getElementById('devisNumber').textContent = currentDevisNumber;
         document.getElementById('factureNumber').textContent = currentFactureNumber;
     });
 
-    function switchTab(tabName, event) {
+    function switchTab(tab, e) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(tabName + '-content').classList.add('active');
-        event.target.classList.add('active');
+        document.getElementById(tab + '-content').classList.add('active');
+        e.target.classList.add('active');
     }
 
-    function initializeDocument(type) {
+    function initializeDate(type) {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById(type + '-date').value = today;
-        if (type === 'devis') {
-            const v = new Date(); v.setDate(v.getDate() + 30);
-            document.getElementById(type + '-validUntil').value = v.toISOString().split('T')[0];
-        } else {
-            document.getElementById(type + '-prestationDate').value = today;
-            const e = new Date(); e.setDate(e.getDate() + 30);
-            document.getElementById(type + '-echeance').value = e.toISOString().split('T')[0];
+        if(type === 'devis') {
+            const valid = new Date(); valid.setDate(valid.getDate() + 30);
+            document.getElementById('devis-validUntil').value = valid.toISOString().split('T')[0];
         }
-        applyGlobalTva(type);
-    }
-
-    function calculateRow(input, type) {
-        const row = input.closest('tr');
-        const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
-        const price = parseFloat(row.querySelector('.price-input').value) || 0;
-        const totalHT = qty * price;
-        row.querySelector('.total-cell').textContent = totalHT.toFixed(2) + ' €';
-        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
-        row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (totalHT * taux).toFixed(2) + ' €';
-        calculateTotals(type);
-    }
-
-    function calculateTotals(type) {
-        let totalHT = 0, totalTVA = 0;
-        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
-        document.querySelectorAll('#' + type + '-itemsTable tr:not(.category-row)').forEach(row => {
-            const q = row.querySelector('.qty-input');
-            const p = row.querySelector('.price-input');
-            if (!q || !p) return;
-            const line = (parseFloat(q.value) || 0) * (parseFloat(p.value) || 0);
-            totalHT += line;
-            if (taux !== 0) totalTVA += line * taux;
-        });
-        document.getElementById(type + '-totalHT').textContent = totalHT.toFixed(2) + ' €';
-        if (taux === 0) {
-            document.getElementById(type + '-totalTVA').textContent = '-';
-            document.getElementById(type + '-totalTTC').textContent = totalHT.toFixed(2) + ' €';
-        } else {
-            document.getElementById(type + '-totalTVA').textContent = totalTVA.toFixed(2) + ' €';
-            document.getElementById(type + '-totalTTC').textContent = (totalHT + totalTVA).toFixed(2) + ' €';
-        }
-        if (type === 'devis') updateConditions('devis');
     }
 
     function addItem(type) {
         const tbody = document.getElementById(type + '-itemsTable');
         const row = document.createElement('tr');
-        row.innerHTML =
-            '<td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>' +
-            '<td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,\'' + type + '\')"></td>' +
-            '<td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,\'' + type + '\')"></td>' +
-            '<td class="total-cell">0.00 €</td>' +
-            '<td class="tva-cell">-</td>' +
-            '<td class="no-print"><button class="remove-btn" onclick="removeRow(this,\'' + type + '\')">🗑️</button></td>';
+        row.innerHTML = `
+            <td><div class="editable-cell" contenteditable="true" data-placeholder="Description..."></div></td>
+            <td><input type="number" class="qty-input" value="1" oninput="calculateTotals('${type}')"></td>
+            <td><input type="number" class="price-input" value="0.00" step="0.01" oninput="calculateTotals('${type}')"></td>
+            <td class="total-cell">0.00 €</td>
+            <td class="tva-cell">-</td>
+            <td class="no-print"><button class="remove-btn" onclick="removeRow(this, '${type}')">🗑️</button></td>
+        `;
         tbody.appendChild(row);
+        calculateTotals(type);
     }
 
     function addCategory(type) {
         const tbody = document.getElementById(type + '-itemsTable');
         const row = document.createElement('tr');
-        row.classList.add('category-row');
-        row.innerHTML =
-            '<td colspan="5"><div class="editable-cell" contenteditable="true" data-placeholder="Titre de catégorie (ex: Démolition et dépose)"></div></td>' +
-            '<td class="no-print"><button class="remove-btn" onclick="removeRow(this,\'' + type + '\')">🗑️</button></td>';
+        row.className = 'category-row';
+        row.innerHTML = `
+            <td colspan="5">
+                <div class="editable-cell" contenteditable="true" data-placeholder="TITRE DE LA CATÉGORIE (ex: SALLE DE BAIN)"></div>
+                <span class="subtotal-badge">Sous-total : 0.00 € HT</span>
+            </td>
+            <td class="no-print"><button class="remove-btn" onclick="removeRow(this, '${type}')">🗑️</button></td>
+        `;
         tbody.appendChild(row);
     }
 
@@ -415,13 +332,56 @@
         calculateTotals(type);
     }
 
+    function calculateTotals(type) {
+        let totalHT = 0;
+        let totalTVA = 0;
+        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
+        
+        const rows = document.querySelectorAll('#' + type + '-itemsTable tr');
+        let currentCatSubtotal = 0;
+        let lastCatRow = null;
+
+        rows.forEach(row => {
+            if (row.classList.contains('category-row')) {
+                // Si on a déjà une catégorie en cours, on finit le calcul précédent
+                if (lastCatRow) {
+                    lastCatRow.querySelector('.subtotal-badge').textContent = `Sous-total : ${currentCatSubtotal.toFixed(2)} € HT`;
+                }
+                lastCatRow = row;
+                currentCatSubtotal = 0;
+            } else {
+                const q = parseFloat(row.querySelector('.qty-input').value) || 0;
+                const p = parseFloat(row.querySelector('.price-input').value) || 0;
+                const lineHT = q * p;
+                
+                row.querySelector('.total-cell').textContent = lineHT.toFixed(2) + ' €';
+                row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (lineHT * taux).toFixed(2) + ' €';
+                
+                totalHT += lineHT;
+                currentCatSubtotal += lineHT;
+                if (taux !== 0) totalTVA += lineHT * taux;
+            }
+        });
+
+        // Mise à jour de la dernière catégorie traitée
+        if (lastCatRow) {
+            lastCatRow.querySelector('.subtotal-badge').textContent = `Sous-total : ${currentCatSubtotal.toFixed(2)} € HT`;
+        }
+
+        const totalTTC = totalHT + totalTVA;
+        document.getElementById(type + '-totalHT').textContent = totalHT.toFixed(2) + ' €';
+        document.getElementById(type + '-totalTVA').textContent = taux === 0 ? '-' : totalTVA.toFixed(2) + ' €';
+        document.getElementById(type + '-totalTTC').textContent = totalTTC.toFixed(2) + ' €';
+
+        if (type === 'devis') updateConditions('devis');
+    }
+
     function updateConditions(type) {
         const totalTTC = parseFloat(document.getElementById(type + '-totalTTC').textContent) || 0;
         document.querySelectorAll('#' + type + '-conditionsTable tr').forEach(row => {
-            const pctInput = row.querySelector('.cond-pct');
+            const pct = parseFloat(row.querySelector('.cond-pct').value) || 0;
             const amountCell = row.querySelector('.cond-amount');
-            if (pctInput && amountCell) {
-                const pct = parseFloat(pctInput.value) || 0;
+            if (amountCell) {
                 amountCell.textContent = (totalTTC * pct / 100).toFixed(2) + ' €';
             }
         });
@@ -430,17 +390,27 @@
     function addCondition(type) {
         const tbody = document.getElementById(type + '-conditionsTable');
         const row = document.createElement('tr');
-        row.innerHTML =
-            '<td><input type="text" class="cond-label" placeholder="Échéance" oninput="updateConditions(\'' + type + '\')"></td>' +
-            '<td><input type="number" class="cond-pct" placeholder="0" min="0" max="100" oninput="updateConditions(\'' + type + '\')"> %</td>' +
-            '<td class="cond-amount">0.00 €</td>' +
-            '<td class="no-print"><button class="remove-btn" onclick="removeCondition(this)">🗑️</button></td>';
+        row.innerHTML = `
+            <td><input type="text" class="cond-label" placeholder="Nouvelle échéance" oninput="updateConditions('${type}')"></td>
+            <td><input type="number" class="cond-pct" value="0" oninput="updateConditions('${type}')"></td>
+            <td class="cond-amount">0.00 €</td>
+            <td class="no-print"><button class="remove-btn" onclick="this.closest('tr').remove()">🗑️</button></td>
+        `;
         tbody.appendChild(row);
     }
 
-    function removeCondition(btn) { btn.closest('tr').remove(); }
+    function applyGlobalTva(type) {
+        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
+        const label = document.getElementById(type + '-tvaLabel');
+        if (label) {
+            label.textContent = taux === 0 ? 'TVA non applicable - Art. 293 B du CGI' : `TVA (${taux*100}%) :`;
+        }
+        calculateTotals(type);
+    }
 
     function newDocument(type) {
+        if (!confirm("Effacer les données actuelles pour un nouveau document ?")) return;
+        
         if (type === 'devis') {
             currentDevisNumber++;
             localStorage.setItem('gignac-devisNumber', currentDevisNumber);
@@ -450,62 +420,13 @@
             localStorage.setItem('gignac-factureNumber', currentFactureNumber);
             document.getElementById('factureNumber').textContent = currentFactureNumber;
         }
+        
+        document.getElementById(type + '-itemsTable').innerHTML = '';
+        addItem(type);
         document.getElementById(type + '-clientName').value = '';
         document.getElementById(type + '-clientAddress').value = '';
-        document.getElementById(type + '-clientSiret').value = '';
-        initializeDocument(type);
-        document.getElementById(type + '-itemsTable').innerHTML =
-            '<tr><td><div class="editable-cell" contenteditable="true" data-placeholder="Description de la prestation"></div></td>' +
-            '<td><input type="number" class="qty-input" placeholder="1" oninput="calculateRow(this,\'' + type + '\')"></td>' +
-            '<td><input type="number" class="price-input" placeholder="0.00" step="0.01" oninput="calculateRow(this,\'' + type + '\')"></td>' +
-            '<td class="total-cell">0.00 €</td><td class="tva-cell">-</td>' +
-            '<td class="no-print"><button class="remove-btn" onclick="removeRow(this,\'' + type + '\')">🗑️</button></td></tr>';
-        if (type === 'devis') {
-            document.querySelectorAll('#devis-conditionsTable .cond-pct, #devis-conditionsTable .cond-label').forEach(i => i.value = '');
-            document.querySelectorAll('#devis-conditionsTable .cond-amount').forEach(c => c.textContent = '0.00 €');
-        }
-        calculateTotals(type);
     }
-
-    function generatePDF() { window.print(); }
-
-    function applyGlobalTva(type) {
-        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
-        const header = document.querySelector('#' + type + '-content .tva-header');
-        if (header) header.textContent = taux === 0 ? 'TVA' : 'TVA (' + (taux * 100).toFixed(0) + '%)';
-        const label = document.getElementById(type + '-tvaLabel');
-        if (label) label.textContent = taux === 0 ? 'TVA non applicable - Art. 293 B du CGI' : 'TVA (' + (taux * 100).toFixed(0) + '%) :';
-        document.querySelectorAll('#' + type + '-itemsTable tr:not(.category-row)').forEach(row => {
-            const q = row.querySelector('.qty-input');
-            const p = row.querySelector('.price-input');
-            if (!q || !p) return;
-            const line = (parseFloat(q.value) || 0) * (parseFloat(p.value) || 0);
-            row.querySelector('.total-cell').textContent = line.toFixed(2) + ' €';
-            row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (line * taux).toFixed(2) + ' €';
-        });
-        calculateTotals(type);
-    }
-
-    document.getElementById('facture-conditions').addEventListener('change', function() {
-        const d = new Date(document.getElementById('facture-date').value);
-        if (this.value === 'immediat') {
-            document.getElementById('facture-echeance').value = document.getElementById('facture-date').value;
-        } else {
-            d.setDate(d.getDate() + parseInt(this.value));
-            document.getElementById('facture-echeance').value = d.toISOString().split('T')[0];
-        }
-    });
-
-    document.getElementById('facture-date').addEventListener('change', function() {
-        const cond = document.getElementById('facture-conditions').value;
-        const d = new Date(this.value);
-        if (cond === 'immediat') {
-            document.getElementById('facture-echeance').value = this.value;
-        } else {
-            d.setDate(d.getDate() + parseInt(cond));
-            document.getElementById('facture-echeance').value = d.toISOString().split('T')[0];
-        }
-    });
 </script>
+
 </body>
 </html>
