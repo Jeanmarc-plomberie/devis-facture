@@ -55,9 +55,141 @@
         .btn { padding: 12px 24px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
         .btn-primary { background-color: #1565c0; color: white; }
         .btn-success { background-color: #28a745; color: white; }
-        
+
+        /* ─── API Key Modal ─── */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-backdrop.visible { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 10px;
+            padding: 28px 32px;
+            width: 420px;
+            max-width: 90vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .modal h3 { margin: 0 0 8px 0; font-size: 17px; color: #1a1a1a; }
+        .modal p { margin: 0 0 16px 0; font-size: 13px; color: #555; line-height: 1.5; }
+        .modal .api-key-input-wrap { position: relative; }
+        .modal input[type="password"], .modal input[type="text"] {
+            width: 100%; padding: 10px 40px 10px 12px;
+            border: 1px solid #ddd; border-radius: 6px;
+            font-size: 14px; box-sizing: border-box;
+            font-family: monospace;
+        }
+        .modal input:focus { outline: none; border-color: #1565c0; box-shadow: 0 0 0 2px rgba(21,101,192,0.15); }
+        .toggle-key-btn {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; font-size: 16px; color: #888;
+        }
+        .modal-actions { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+        .modal-actions button { padding: 9px 18px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: bold; }
+        .btn-cancel { background: #f0f0f0; color: #555; }
+        .btn-save-key { background: #1565c0; color: white; }
+        .modal .warning-note {
+            background: #fff8e1; border: 1px solid #ffe082; border-radius: 5px;
+            padding: 8px 12px; font-size: 12px; color: #7a5c00; margin-bottom: 14px;
+        }
+        .api-key-status {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 11px; padding: 2px 8px; border-radius: 10px;
+            font-weight: bold; margin-left: 8px;
+        }
+        .api-key-status.set { background: #e8f5e9; color: #2e7d32; }
+        .api-key-status.unset { background: #fce4ec; color: #c62828; }
+
+        /* ─── Import PDF Feature ─── */
+        .import-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, #e8f0fe 0%, #f0f4ff 100%);
+            border: 1px dashed #90aee8;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .import-bar label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #1565c0;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .import-bar label:hover { background: #0d47a1; }
+        .import-bar input[type="file"] { display: none; }
+        .import-hint {
+            font-size: 12px;
+            color: #555;
+            flex: 1;
+        }
+        .import-hint strong { color: #1565c0; }
+
+        /* Loading overlay */
+        .import-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .import-overlay.visible { display: flex; }
+        .import-spinner {
+            width: 52px; height: 52px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .import-overlay p {
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        /* Toast notification */
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.3s ease;
+        }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         @media print {
-            .tabs, .actions, .btn-row-group, .remove-btn, .add-condition-btn, .no-print { display: none !important; }
+            .tabs, .actions, .btn-row-group, .remove-btn, .add-condition-btn, .no-print, .import-bar { display: none !important; }
             body { background: white; padding: 0; }
             .container { box-shadow: none; border-radius: 0; max-width: 100%; }
             .editable-cell { border: none !important; }
@@ -69,13 +201,35 @@
 </head>
 <body>
 
+<!-- Loading overlay -->
+<div class="import-overlay" id="importOverlay">
+    <div class="import-spinner"></div>
+    <p>Analyse du PDF en cours…<br><span style="font-weight:normal;font-size:13px">Claude lit le document et extrait les données</span></p>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <div class="container">
     <div class="tabs">
         <div class="tab active" onclick="switchTab('devis', event)">Devis</div>
         <div class="tab" onclick="switchTab('facture', event)">Facture</div>
     </div>
 
+    <!-- ══════════════ DEVIS ══════════════ -->
     <div id="devis-content" class="tab-content active">
+
+        <div class="import-bar no-print">
+            <label for="devis-pdf-upload">
+                📂 Importer un PDF
+                <input type="file" id="devis-pdf-upload" accept="application/pdf" onchange="importPDF(event,'devis')">
+            </label>
+            <span class="import-hint">Pré-remplit automatiquement depuis un PDF — <strong>Claude AI</strong>
+                <span id="devis-key-status" class="api-key-status unset">● Clé non configurée</span>
+            </span>
+            <button onclick="openApiKeyModal()" title="Configurer la clé API" style="background:none;border:1px solid #90aee8;border-radius:4px;padding:5px 9px;cursor:pointer;font-size:15px;color:#1565c0;">⚙️</button>
+        </div>
+
         <div class="header">
             <div class="logo-section">
                 <svg class="logo" viewBox="0 0 55 55">
@@ -129,7 +283,7 @@
                 </thead>
                 <tbody id="devis-itemsTable">
                     <tr>
-                        <td><div class="editable-cell" contenteditable="true" data-placeholder="Description..."></div></td>
+                        <td><div class="editable-cell" contenteditable="true"></div></td>
                         <td><input type="number" class="qty-input" value="1" oninput="calculateTotals('devis')"></td>
                         <td><input type="number" class="price-input" value="0.00" step="0.01" oninput="calculateTotals('devis')"></td>
                         <td class="total-cell">0.00 €</td>
@@ -196,43 +350,113 @@
         </div>
     </div>
 
+    <!-- ══════════════ FACTURE ══════════════ -->
     <div id="facture-content" class="tab-content">
+
+        <div class="import-bar no-print">
+            <label for="facture-pdf-upload">
+                📂 Importer un PDF
+                <input type="file" id="facture-pdf-upload" accept="application/pdf" onchange="importPDF(event,'facture')">
+            </label>
+            <span class="import-hint">Pré-remplit automatiquement depuis un PDF — <strong>Claude AI</strong>
+                <span id="facture-key-status" class="api-key-status unset">● Clé non configurée</span>
+            </span>
+            <button onclick="openApiKeyModal()" title="Configurer la clé API" style="background:none;border:1px solid #90aee8;border-radius:4px;padding:5px 9px;cursor:pointer;font-size:15px;color:#1565c0;">⚙️</button>
+        </div>
+
         <div class="header">
             <div class="logo-section">
                 <svg class="logo" viewBox="0 0 55 55"><circle cx="18" cy="37" r="8" fill="none" stroke="#1565c0" stroke-width="2.5"/><circle cx="18" cy="37" r="3" fill="#1565c0"/><rect x="23" y="33" width="22" height="4" rx="2" fill="#1565c0" transform="rotate(-45 34 35)"/><path d="M38 28 C38 22 43 18 41 12 C44 16 46 20 44 26 C46 24 47 21 46 18 C49 22 50 27 47 31 C47 35 43 37 39 36 C35 35 33 31 35 27 C36 29 37 29 38 28Z" fill="#e65100"/></svg>
                 <div class="company-info">
                     <h1>ENTREPRISE PLOMBERIE</h1>
+                    <div class="subtitle">SANITAIRE - CHAUFFAGE</div>
                     <p><strong>M. Jean-Marc GIGNAC</strong></p>
+                    <p>11 avenue Pierre Semard - 06150 CANNES LA BOCCA</p>
+                    <p>Tél. 07 85 40 33 98 | SIRET : 490 581 006 00031</p>
                 </div>
             </div>
             <div class="document-number">Facture N° <span id="factureNumber">1</span></div>
         </div>
+
         <div class="client-section">
             <div class="client-info">
                 <h3>CLIENT</h3>
-                <div class="form-group"><input type="text" id="facture-clientName" placeholder="Nom"></div>
-                <div class="form-group"><textarea id="facture-clientAddress" placeholder="Adresse"></textarea></div>
+                <div class="form-group"><label>Nom / Client</label><input type="text" id="facture-clientName" placeholder="Nom du client"></div>
+                <div class="form-group"><label>Adresse</label><textarea id="facture-clientAddress" placeholder="Adresse complète"></textarea></div>
             </div>
             <div class="document-info">
                 <h3>INFO FACTURE</h3>
                 <div class="form-group"><label>Date</label><input type="date" id="facture-date"></div>
-                <div class="form-group"><label>TVA</label>
+                <div class="form-group"><label>TVA applicable</label>
                     <select id="facture-globalTvaSelect" onchange="applyGlobalTva('facture')">
-                        <option value="0">0%</option><option value="0.10">10%</option><option value="0.20">20%</option>
+                        <option value="0" selected>0% (Auto-entrepreneur)</option>
+                        <option value="0.10">10%</option>
+                        <option value="0.20">20%</option>
                     </select>
                 </div>
             </div>
         </div>
+
         <div class="items-section">
-            <table class="items-table"><thead id="facture-head"><tr><th style="width:60%">DÉSIGNATION</th><th style="width:7%">QTÉ</th><th style="width:13%">P.U. HT</th><th style="width:13%">TOTAL HT</th><th style="width:4%">TVA</th><th class="no-print"></th></tr></thead><tbody id="facture-itemsTable"></tbody></table>
-            <div class="btn-row-group"><button class="add-cat-btn" onclick="addCategory('facture')">+ Catégorie</button><button class="add-item-btn" onclick="addItem('facture')">+ Prestation</button></div>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width:60%">DÉSIGNATION</th>
+                        <th style="width:7%">QTÉ</th>
+                        <th style="width:13%">P.U. HT</th>
+                        <th style="width:13%">TOTAL HT</th>
+                        <th style="width:4%">TVA</th>
+                        <th class="no-print" style="width:3%"></th>
+                    </tr>
+                </thead>
+                <tbody id="facture-itemsTable">
+                    <tr>
+                        <td><div class="editable-cell" contenteditable="true"></div></td>
+                        <td><input type="number" class="qty-input" value="1" oninput="calculateTotals('facture')"></td>
+                        <td><input type="number" class="price-input" value="0.00" step="0.01" oninput="calculateTotals('facture')"></td>
+                        <td class="total-cell">0.00 €</td>
+                        <td class="tva-cell">-</td>
+                        <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'facture')">🗑️</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn-row-group">
+                <button class="add-cat-btn" onclick="addCategory('facture')">+ Titre catégorie</button>
+                <button class="add-item-btn" onclick="addItem('facture')">+ Ligne prestation</button>
+            </div>
         </div>
+
         <div class="totals">
             <div class="total-row"><span>Total HT :</span><span id="facture-totalHT">0.00 €</span></div>
-            <div class="total-row"><span>TVA :</span><span id="facture-totalTVA">-</span></div>
+            <div class="total-row"><span id="facture-tvaLabel">TVA non applicable - Art. 293 B du CGI</span><span id="facture-totalTVA">-</span></div>
             <div class="total-row final"><span>Total TTC :</span><span id="facture-totalTTC">0.00 €</span></div>
         </div>
-        <div class="actions"><button class="btn btn-primary" onclick="window.print()">Imprimer</button><button class="btn btn-success" onclick="newDocument('facture')">Nouvelle facture</button></div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="window.print()">Imprimer / PDF</button>
+            <button class="btn btn-success" onclick="newDocument('facture')">Nouvelle facture</button>
+        </div>
+    </div>
+</div>
+
+<!-- API Key Modal -->
+<div class="modal-backdrop" id="apiKeyModal">
+    <div class="modal">
+        <h3>🔑 Clé API Anthropic</h3>
+        <p>Créez un compte sur <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys → Create Key.<br>
+        Coût : ~0,01 € par PDF analysé (crédit de démarrage offert).</p>
+        <div class="warning-note">
+            ⚠️ La clé est stockée uniquement dans <strong>ce navigateur</strong> (localStorage). Ne partagez jamais cette page avec votre clé saisie.
+        </div>
+        <div class="api-key-input-wrap">
+            <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off">
+            <button class="toggle-key-btn" onclick="toggleKeyVisibility()" id="toggleKeyBtn">👁️</button>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeApiKeyModal()">Annuler</button>
+            <button class="btn-cancel" onclick="clearApiKey()" style="color:#dc3545;">Supprimer</button>
+            <button class="btn-save-key" onclick="saveApiKey()">Enregistrer</button>
+        </div>
     </div>
 </div>
 
@@ -243,10 +467,73 @@
     document.addEventListener('DOMContentLoaded', () => {
         initializeDates('devis');
         initializeDates('facture');
-        addItem('facture'); // Initialise une ligne pour la facture
         document.getElementById('devisNumber').textContent = currentDevisNumber;
         document.getElementById('factureNumber').textContent = currentFactureNumber;
         calculateTotals('devis');
+        calculateTotals('facture');
+        updateKeyStatus();
+    });
+
+    /* ══════════════════════════════════════════
+       API KEY MANAGEMENT
+    ══════════════════════════════════════════ */
+    function getApiKey() {
+        return localStorage.getItem('gignac-anthropic-key') || '';
+    }
+
+    function updateKeyStatus() {
+        const hasKey = !!getApiKey();
+        ['devis', 'facture'].forEach(type => {
+            const el = document.getElementById(type + '-key-status');
+            if (!el) return;
+            el.className = 'api-key-status ' + (hasKey ? 'set' : 'unset');
+            el.textContent = hasKey ? '● Clé configurée' : '● Clé non configurée';
+        });
+    }
+
+    function openApiKeyModal() {
+        document.getElementById('apiKeyInput').value = getApiKey();
+        document.getElementById('apiKeyModal').classList.add('visible');
+    }
+
+    function closeApiKeyModal() {
+        document.getElementById('apiKeyModal').classList.remove('visible');
+    }
+
+    function saveApiKey() {
+        const key = document.getElementById('apiKeyInput').value.trim();
+        if (key) {
+            localStorage.setItem('gignac-anthropic-key', key);
+            showToast('✅ Clé API enregistrée', 'success');
+        }
+        closeApiKeyModal();
+        updateKeyStatus();
+    }
+
+    function clearApiKey() {
+        if (!confirm('Supprimer la clé API sauvegardée ?')) return;
+        localStorage.removeItem('gignac-anthropic-key');
+        document.getElementById('apiKeyInput').value = '';
+        closeApiKeyModal();
+        updateKeyStatus();
+        showToast('🗑️ Clé supprimée', 'success');
+    }
+
+    function toggleKeyVisibility() {
+        const input = document.getElementById('apiKeyInput');
+        const btn = document.getElementById('toggleKeyBtn');
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('apiKeyModal').addEventListener('click', function(e) {
+        if (e.target === this) closeApiKeyModal();
     });
 
     function switchTab(tab, e) {
@@ -259,7 +546,7 @@
     function initializeDates(type) {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById(type + '-date').value = today;
-        if(type === 'devis') {
+        if (type === 'devis') {
             const v = new Date(); v.setDate(v.getDate() + 30);
             document.getElementById('devis-validUntil').value = v.toISOString().split('T')[0];
         }
@@ -269,7 +556,7 @@
         const tbody = document.getElementById(type + '-itemsTable');
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><div class="editable-cell" contenteditable="true" data-placeholder="Description..."></div></td>
+            <td><div class="editable-cell" contenteditable="true"></div></td>
             <td><input type="number" class="qty-input" value="1" oninput="calculateTotals('${type}')"></td>
             <td><input type="number" class="price-input" value="0.00" step="0.01" oninput="calculateTotals('${type}')"></td>
             <td class="total-cell">0.00 €</td>
@@ -286,7 +573,7 @@
         row.className = 'category-row';
         row.innerHTML = `
             <td colspan="5">
-                <div class="editable-cell" contenteditable="true" data-placeholder="TITRE DE CATÉGORIE..."></div>
+                <div class="editable-cell" contenteditable="true"></div>
                 <span class="subtotal-badge">Sous-total : 0.00 € HT</span>
             </td>
             <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
@@ -303,7 +590,7 @@
         let totalHT = 0;
         let totalTVA = 0;
         const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
-        
+
         const rows = document.querySelectorAll('#' + type + '-itemsTable tr');
         let currentCatSubtotal = 0;
         let lastCatRow = null;
@@ -319,10 +606,8 @@
                 const q = parseFloat(row.querySelector('.qty-input').value) || 0;
                 const p = parseFloat(row.querySelector('.price-input').value) || 0;
                 const lineHT = q * p;
-                
                 row.querySelector('.total-cell').textContent = lineHT.toFixed(2) + ' €';
                 row.querySelector('.tva-cell').textContent = taux === 0 ? '-' : (lineHT * taux).toFixed(2) + ' €';
-                
                 totalHT += lineHT;
                 currentCatSubtotal += lineHT;
                 if (taux !== 0) totalTVA += lineHT * taux;
@@ -337,6 +622,8 @@
         document.getElementById(type + '-totalHT').textContent = totalHT.toFixed(2) + ' €';
         document.getElementById(type + '-totalTVA').textContent = taux === 0 ? '-' : totalTVA.toFixed(2) + ' €';
         document.getElementById(type + '-totalTTC').textContent = totalTTC.toFixed(2) + ' €';
+        const label = document.getElementById(type + '-tvaLabel');
+        if (label) label.textContent = taux === 0 ? 'TVA non applicable - Art. 293 B du CGI' : `TVA (${(taux * 100).toFixed(0)}%) :`;
 
         if (type === 'devis') updateConditions('devis');
     }
@@ -358,9 +645,6 @@
     }
 
     function applyGlobalTva(type) {
-        const taux = parseFloat(document.getElementById(type + '-globalTvaSelect').value);
-        const label = document.getElementById(type + '-tvaLabel');
-        if (label) label.textContent = taux === 0 ? 'TVA non applicable - Art. 293 B du CGI' : `TVA (${(taux*100).toFixed(0)}%) :`;
         calculateTotals(type);
     }
 
@@ -379,6 +663,204 @@
         addItem(type);
         document.getElementById(type + '-clientName').value = '';
         document.getElementById(type + '-clientAddress').value = '';
+        if (type === 'devis') {
+            document.getElementById('devis-conditionsTable').querySelectorAll('tr .cond-amount').forEach(c => c.textContent = '0.00 €');
+        }
+        initializeDates(type);
+    }
+
+    /* ══════════════════════════════════════════
+       IMPORT PDF — Anthropic API (browser natif)
+    ══════════════════════════════════════════ */
+
+    async function importPDF(event, type) {
+        const file = event.target.files[0];
+        if (!file) return;
+        event.target.value = '';
+
+        const apiKey = getApiKey();
+        if (!apiKey) {
+            openApiKeyModal();
+            showToast('⚠️ Veuillez d\'abord configurer votre clé API', 'error');
+            return;
+        }
+
+        showOverlay(true);
+
+        try {
+            const base64 = await fileToBase64(file);
+
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey,
+                    'anthropic-version': '2023-06-01',
+                    'anthropic-dangerous-direct-browser-access': 'true'
+                },
+                body: JSON.stringify({
+                    model: 'claude-haiku-4-5-20251001',
+                    max_tokens: 1500,
+                    messages: [{
+                        role: 'user',
+                        content: [
+                            {
+                                type: 'document',
+                                source: { type: 'base64', media_type: 'application/pdf', data: base64 }
+                            },
+                            {
+                                type: 'text',
+                                text: `Tu es un assistant qui extrait des données structurées depuis un document PDF de devis ou facture.
+
+Extrait les informations suivantes et retourne UNIQUEMENT un objet JSON valide, sans markdown, sans explication, sans backticks.
+
+Format attendu :
+{
+  "clientName": "...",
+  "clientAddress": "...",
+  "date": "YYYY-MM-DD",
+  "validUntil": "YYYY-MM-DD ou null",
+  "tva": 0,
+  "lignes": [
+    { "type": "item", "designation": "...", "qty": 1, "unitPrice": 0.00 },
+    { "type": "category", "title": "..." }
+  ],
+  "conditions": [
+    { "label": "...", "pct": 30 }
+  ]
+}
+
+Règles :
+- "tva" doit être 0, 0.10 ou 0.20
+- "type":"category" pour les titres de section, "type":"item" pour les prestations
+- "conditions" est optionnel ([] si absent)
+- Si une info est absente, mets null
+- Les montants sont des nombres, pas des chaînes
+- Dates au format ISO YYYY-MM-DD`
+                            }
+                        ]
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                throw new Error(err.error?.message || `Erreur API : ${response.status}`);
+            }
+
+            const data = await response.json();
+            const text = data.content.map(b => b.text || '').join('');
+            const clean = text.replace(/```json|```/g, '').trim();
+            const parsed = JSON.parse(clean);
+
+            // 3. Populate form
+            populateForm(type, parsed);
+            showToast('✅ Document importé avec succès !', 'success');
+
+        } catch (err) {
+            console.error('Import PDF error:', err);
+            showToast('❌ ' + (err.message || 'Erreur lors de l\'analyse du PDF'), 'error');
+        } finally {
+            showOverlay(false);
+        }
+    }
+
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = () => reject(new Error('Impossible de lire le fichier'));
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function populateForm(type, data) {
+        // Client info
+        if (data.clientName) document.getElementById(type + '-clientName').value = data.clientName;
+        if (data.clientAddress) document.getElementById(type + '-clientAddress').value = data.clientAddress;
+
+        // Dates
+        if (data.date) document.getElementById(type + '-date').value = data.date;
+        if (type === 'devis' && data.validUntil) document.getElementById('devis-validUntil').value = data.validUntil;
+
+        // TVA
+        if (data.tva !== undefined && data.tva !== null) {
+            const select = document.getElementById(type + '-globalTvaSelect');
+            select.value = String(data.tva);
+        }
+
+        // Lines
+        const tbody = document.getElementById(type + '-itemsTable');
+        tbody.innerHTML = '';
+
+        if (Array.isArray(data.lignes) && data.lignes.length > 0) {
+            data.lignes.forEach(ligne => {
+                if (ligne.type === 'category') {
+                    const row = document.createElement('tr');
+                    row.className = 'category-row';
+                    row.innerHTML = `
+                        <td colspan="5">
+                            <div class="editable-cell" contenteditable="true">${escapeHtml(ligne.title || '')}</div>
+                            <span class="subtotal-badge">Sous-total : 0.00 € HT</span>
+                        </td>
+                        <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
+                    `;
+                    tbody.appendChild(row);
+                } else {
+                    const row = document.createElement('tr');
+                    const qty = parseFloat(ligne.qty) || 1;
+                    const price = parseFloat(ligne.unitPrice) || 0;
+                    row.innerHTML = `
+                        <td><div class="editable-cell" contenteditable="true">${escapeHtml(ligne.designation || '')}</div></td>
+                        <td><input type="number" class="qty-input" value="${qty}" oninput="calculateTotals('${type}')"></td>
+                        <td><input type="number" class="price-input" value="${price.toFixed(2)}" step="0.01" oninput="calculateTotals('${type}')"></td>
+                        <td class="total-cell">0.00 €</td>
+                        <td class="tva-cell">-</td>
+                        <td class="no-print"><button class="remove-btn" onclick="removeRow(this,'${type}')">🗑️</button></td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+        } else {
+            // Fallback : au moins une ligne vide
+            addItem(type);
+        }
+
+        // Conditions de règlement (devis only)
+        if (type === 'devis' && Array.isArray(data.conditions) && data.conditions.length > 0) {
+            const condTbody = document.getElementById('devis-conditionsTable');
+            condTbody.innerHTML = '';
+            data.conditions.forEach(cond => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="text" class="cond-label" value="${escapeHtml(cond.label || '')}"></td>
+                    <td><input type="number" class="cond-pct" value="${cond.pct || 0}" oninput="updateConditions('devis')"></td>
+                    <td class="cond-amount">0.00 €</td>
+                    <td class="no-print"><button class="remove-btn" onclick="this.closest('tr').remove()">🗑️</button></td>
+                `;
+                condTbody.appendChild(row);
+            });
+        }
+
+        calculateTotals(type);
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(String(str)));
+        return div.innerHTML;
+    }
+
+    function showOverlay(visible) {
+        document.getElementById('importOverlay').classList.toggle('visible', visible);
+    }
+
+    function showToast(msg, type) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.className = 'toast ' + type;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
     }
 </script>
 </body>
